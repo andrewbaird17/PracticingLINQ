@@ -25,8 +25,20 @@ namespace LINQProblems
             {
                 Console.WriteLine(item);
             }
+
+            // Problem 3
+            List<string> classGrades = new List<string>()
+            {
+                "80,100,92,89,65",
+                "93,81,78,84,69",
+                "73,88,83,99,64",
+                "98,100,66,74,55"
+            };
+            double output3 = AvgOfAvgs(classGrades);
+            Console.WriteLine(output3);
             Console.ReadLine();
 
+            // Problem 4
         }
 
         static List<string> LookForTH(List<string> input)
@@ -38,5 +50,17 @@ namespace LINQProblems
         {
             return input.Distinct().ToList();
         }
+
+        static double AvgOfAvgs(List<string> input)
+        {
+            var output = input.Select(x => x.Split(',').Select(item => Convert.ToDouble(item)).ToList().ToList());
+
+            output = output.Where(z => z.Remove(z.Min())).ToList();
+
+            var result = output.Select(y => y.Average());
+
+            return result.Average();
+        }
+
     }
 }
