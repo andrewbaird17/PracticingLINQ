@@ -36,9 +36,13 @@ namespace LINQProblems
             };
             double output3 = AvgOfAvgs(classGrades);
             Console.WriteLine(output3);
-            Console.ReadLine();
+            
 
             // Problem 4
+            string word4 = "Terrill";
+            string output4 = CompressAlphabeticalString(word4);
+            Console.WriteLine(output4);
+            Console.ReadLine();
         }
 
         static List<string> LookForTH(List<string> input)
@@ -62,5 +66,14 @@ namespace LINQProblems
             return result.Average();
         }
 
+        static string CompressAlphabeticalString(string input)
+        {
+            var sorted = input.ToUpper().ToCharArray().OrderBy(x => x).ToList();
+            var distinctSorted = sorted.Distinct().ToList();
+            var counts = distinctSorted.Select(x => (sorted.LastIndexOf(x) - sorted.IndexOf(x)) + 1);
+            var output = distinctSorted.Zip(counts, (x, y) => String.Concat(x,y)).ToList();
+
+            return String.Join("",output);
+        }
     }
 }
